@@ -1,24 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+    <title>iScroll demo: infinite scrolling</title>
+
+    <script type="text/javascript" src="./lib/iscroll-infinite.js"></script>
+    <script type="text/javascript" src="./lib/demoUtils.js"></script>
     <link rel="stylesheet" href="./src/index.css" />
 </head>
-<body>
-<div class="rollpic cl"> <a href="javascript:void(0)" class="prev"></a>
-    <div class="rollpicshow">
+<body onload="loaded()">
+<div id="header">iScroll</div>
+
+<div id="wrapper">
+    <div id="scroller">
         <ul>
-            <li><img width="170" height="143" title="" src="./temp/banner1.jpg"></li>
-            <li><img width="170" height="143" title="" src="./temp/banner2.jpg"></li>
-            <li><img width="170" height="143" title="" src="temp/banner3.jpg"></li>
+            <li class="row">Row 1</li>
+            <li class="row">Row 2</li>
+            <li class="row">Row 3</li>
+            <li class="row">Row 4</li>
+            <li class="row">Row 5</li>
+            <li class="row">Row 6</li>
+            <li class="row">Row 7</li>
+            <li class="row">Row 8</li>
+            <li class="row">Row 9</li>
+            <li class="row">Row 10</li>
+            <li class="row">Row 11</li>
+            <li class="row">Row 12</li>
+            <li class="row">Row 13</li>
+            <li class="row">Row 14</li>
+            <li class="row">Row 15</li>
+
+            <li class="row">Row 16</li>
+            <li class="row">Row 17</li>
+            <li class="row">Row 18</li>
+            <li class="row">Row 19</li>
+            <li class="row">Row 20</li>
+            <li class="row">Row 21</li>
+            <li class="row">Row 22</li>
+            <li class="row">Row 23</li>
+            <li class="row">Row 24</li>
+            <li class="row">Row 25</li>
+            <li class="row">Row 26</li>
+            <li class="row">Row 27</li>
+            <li class="row">Row 28</li>
+            <li class="row">Row 29</li>
+            <li class="row">Row 30</li>
         </ul>
     </div>
-    <a href="javascript:void(0)" class="next"></a>
 </div>
 
-<script type="text/javascript" src="lib/jquery.min.js"></script>
-<script type="text/javascript" src="lib/jcarousellite.js"></script>
-<script type="text/javascript" src="src/index.js"></script>
+<div id="footer"></div>
+<script src="./src/index.js"></script>
 </body>
 </html>
