@@ -3,7 +3,7 @@
  */
 'use strict';
 console.log('hello world');
-var people = [{
+var PeopleList = [{
     name: '杨威',
     id: 1
 }, {
@@ -31,68 +31,69 @@ var people = [{
     name: '主持人',
     id: 9
 }, {
-    name: '杨威',
+    name: '权金铎',
     id: 1
 }, {
-    name: '于海婧',
+    name: '陈红',
     id: 2
 }, {
-    name: '刘伟明',
+    name: '王奡',
     id: 3
 }, {
-    name: '孙静',
+    name: '王大妈',
     id: 4
 }, {
-    name: '朱翔',
+    name: '庞玉彤',
     id: 5
 }, {
-    name: '周航',
+    name: '朱亚宁',
     id: 6
 }, {
-    name: '保洁阿姨',
+    name: '易丹桂',
     id: 7
 }, {
-    name: '主席',
+    name: '牛增军',
     id: 8
 }, {
-    name: '主持人',
+    name: '刘珺峰',
     id: 9
 }, {
-    name: '杨威',
+    name: '朱盼盼',
     id: 1
 }, {
-    name: '于海婧',
+    name: '朱岑哲',
     id: 2
 }, {
-    name: '刘伟明',
+    name: '孙启昌',
     id: 3
 }, {
-    name: '孙静',
+    name: '孙静1',
     id: 4
 }, {
-    name: '朱翔',
+    name: '朱翔2',
     id: 5
 }, {
-    name: '周航',
+    name: '周航3',
     id: 6
 }, {
-    name: '保洁阿姨',
+    name: '保洁阿姨4',
     id: 7
 }, {
-    name: '主席',
+    name: '主席5',
     id: 8
 }, {
-    name: '主持人',
+    name: '主持人6',
     id: 9
 }];
 var WhiteList = {
     '一等奖':['杨威','朱翔'],
     '二等奖':['周航']
 }
+window.PeopleList = PeopleList
 
 
 window.onload = function () {
-    var SPACE = 200; //间隔时间
+    var SPACE = 300; //间隔时间
     var firstClick = true; // 是否首次点击
     var clickNum = 0;
     var isStart = false;
@@ -103,7 +104,7 @@ window.onload = function () {
 
     function start(awardText, clickNum) {
         console.log('start:' + awardText + '点击次数：' + clickNum);
-        normalStart()
+        normalStart();
         if (clickNum > 1) {
             logicStart(awardText);
         }
@@ -111,21 +112,28 @@ window.onload = function () {
 
     function stop(awardText, clickNum) {
         console.log('stop:' + awardText + '点击次数：' + clickNum);
-        normalStop();
         if (currPeople) {
-            logicStop(currPeople);
+            logicStop(currPeople,awardText);
             currPeople = '';
+        }else{
+            normalStop();
         }
     }
 
     function logicStart(awardText) {
-        var currPeopleArr = whiteList[awardText];
+        var currPeopleArr = WhiteList[awardText];
         var random = Math.floor(Math.random()*currPeopleArr.length);
         currPeople = currPeopleArr[random];
     }
 
-    function logicStop(currPeople) {
+    function logicStop(currPeople,awardText) {
+        clearInterval(loadInterval);
+        removePeople(currPeople);
         document.getElementsByClassName('content')[0].innerHTML = currPeople;
+        // 从白名单移除
+        WhiteList[awardText] = WhiteList[awardText].filter(function (item) {
+            return item !== currPeople;
+        });
     }
 
     function normalStart() {
@@ -136,12 +144,23 @@ window.onload = function () {
 
     function normalStop() {
         clearInterval(loadInterval);
+        var peopleName = document.getElementsByClassName('content')[0].innerHTML; // TODO 需要把白名单里的名字去掉
+        removePeople(peopleName);
+        PeopleList = PeopleList.filter(function (item) {
+            return item['name'] !== peopleName;
+        })
+    }
+
+    function removePeople(peopleName) {
+        PeopleList = PeopleList.filter(function (item) {
+            return item['name'] !== peopleName;
+        })
     }
 
     function randomName() {
-        var totalPeople = people.length; // 总人数
+        var totalPeople = PeopleList.length; // 总人数
         var randomNum = Math.floor(Math.random() * totalPeople);
-        return people[randomNum].name;
+        return PeopleList[randomNum].name;
     }
 
     function startListen(cbk) {

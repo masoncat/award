@@ -63,8 +63,8 @@ body {
 .content{
     height: 60vh;
     line-height: 60vh;
-    font-size: 36px;
     text-align: center;
+    font-size: 64px;
 }
 .button-group{
     display: flex;
