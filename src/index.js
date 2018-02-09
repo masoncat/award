@@ -4,151 +4,147 @@
 'use strict';
 console.log('hello world');
 var people = [{
-    text: '杨威',
+    name: '杨威',
     id: 1
-},{
-    text: '于海婧',
+}, {
+    name: '于海婧',
     id: 2
-},{
-    text: '刘伟明',
+}, {
+    name: '刘伟明',
     id: 3
-},{
-    text: '孙静',
+}, {
+    name: '孙静',
     id: 4
-},{
-    text: '朱翔',
+}, {
+    name: '朱翔',
     id: 5
-},{
-    text: '周航',
+}, {
+    name: '周航',
     id: 6
-},{
-    text: '保洁阿姨',
+}, {
+    name: '保洁阿姨',
     id: 7
-},{
-    text: '主席',
+}, {
+    name: '主席',
     id: 8
-},{
-    text: '主持人',
+}, {
+    name: '主持人',
     id: 9
-},{
-    text: '杨威',
+}, {
+    name: '杨威',
     id: 1
-},{
-    text: '于海婧',
+}, {
+    name: '于海婧',
     id: 2
-},{
-    text: '刘伟明',
+}, {
+    name: '刘伟明',
     id: 3
-},{
-    text: '孙静',
+}, {
+    name: '孙静',
     id: 4
-},{
-    text: '朱翔',
+}, {
+    name: '朱翔',
     id: 5
-},{
-    text: '周航',
+}, {
+    name: '周航',
     id: 6
-},{
-    text: '保洁阿姨',
+}, {
+    name: '保洁阿姨',
     id: 7
-},{
-    text: '主席',
+}, {
+    name: '主席',
     id: 8
-},{
-    text: '主持人',
+}, {
+    name: '主持人',
     id: 9
-},{
-    text: '杨威',
+}, {
+    name: '杨威',
     id: 1
-},{
-    text: '于海婧',
+}, {
+    name: '于海婧',
     id: 2
-},{
-    text: '刘伟明',
+}, {
+    name: '刘伟明',
     id: 3
-},{
-    text: '孙静',
+}, {
+    name: '孙静',
     id: 4
-},{
-    text: '朱翔',
+}, {
+    name: '朱翔',
     id: 5
-},{
-    text: '周航',
+}, {
+    name: '周航',
     id: 6
-},{
-    text: '保洁阿姨',
+}, {
+    name: '保洁阿姨',
     id: 7
-},{
-    text: '主席',
+}, {
+    name: '主席',
     id: 8
-},{
-    text: '主持人',
+}, {
+    name: '主持人',
     id: 9
 }];
-console.log(people);
+
+
 window.onload = function () {
-    insertData(people);
+    var SPACE = 1000; //间隔时间
+    var firstClick = true; // 是否首次点击
+    var clickNum = 0;
+    var isStart = false;
+    var currAwrad = '';
 
-    var myScroll, inter;
-    var step = -200;
-    var speed = 20;
-    var freq = 20;
+    function start(awardText, clickNum) {
+        console.log('start:' + awardText + '点击次数：' + clickNum);
+    }
 
-    loaded();
+    function stop(awardText, clickNum) {
+        console.log('stop:' + awardText + '点击次数：' + clickNum);
+    }
 
-    function loaded() {
-        myScroll = new IScroll('#wrapper', {
-            mouseWheel: true,
-            infiniteElements: '#scroller .row',
-            //infiniteLimit: 2000,
-            dataset: requestData,
-            dataFiller: updateContent,
-            cacheSize: 1000
-        });
-        window.iscroll = myScroll;
-        inter = setInterval(function () {
-            myScroll.scrollBy(0, step, speed);
-        }, freq)
-
-        document.getElementById('footer').addEventListener('click', function (e) {
-            console.log(1111)
-            clearInterval(inter);
-        })
-
-        document.getElementById('header').addEventListener('click', function (e) {
-            console.log(1111)
-            clearInterval(inter);
-            inter = setInterval(function () {
-                myScroll.scrollBy(0, step, speed);
-            }, freq)
-        })
-
+    function startListen(cbk) {
+        if (firstClick) {
+            firstClick = false;
+            clickNum++;
+            setTimeout(function () {
+                firstClick = true;
+                cbk && cbk(clickNum);
+                clickNum = 0
+            }, SPACE);
+        } else {
+            clickNum++;
+        }
 
     }
 
-    function requestData(start, count) {
+    function startHandler(e, clickNum) {
+        var awardText = e.target.innerHTML;
+        isStart = true;
+        e.target.className += ' button-disabled';
+        currAwrad = e.target.innerHTML;
+        start(awardText, clickNum);
     }
 
-    function updateContent(el, data) {
-        el.innerHTML = data;
+    function stopHandler(e,clickNum) {
+        var awardText = e.target.innerHTML;
+        // 开始后，其他的按钮不能点击
+        if (awardText === currAwrad) {
+            isStart = false;
+            e.target.className = 'button';
+            currAwrad = '';
+            stop(awardText, clickNum);
+        }
     }
 
-    document.addEventListener('touchmove', function (e) {
-        e.preventDefault();
-    }, isPassive() ? {
-        capture: false,
-        passive: false
-    }: false);
+    document.getElementsByClassName('button-group')[0].addEventListener('click', function (e) {
+
+        if (isStart) {         // 再次点击，结束
+            stopHandler(e,clickNum);
+        } else {         // 开始
+            // 需要监听一段时间内的点击事件
+            startListen(startHandler.bind(this, e));
+        }
 
 
-}
-
-function insertData(data) {
-    console.log(111)
-    var innerHtml = '<ul>';
-    for (var i = 0, len = data.length; i < len; i++) {
-        innerHtml += `<li class="row">${data[i].text}</li>`;
-    }
-    innerHtml += '</ul>';
-    document.getElementById('scroller').innerHTML = innerHtml;
-}
+    });
+};

@@ -21,13 +21,13 @@ body {
 }
 
 #header {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
+    /*position: absolute;*/
+    /*z-index: 2;*/
+    /*top: 0;*/
+    /*left: 0;*/
     width: 100%;
-    height: 45px;
-    line-height: 45px;
+    height: 10vh;
+    line-height: 10vh;
     background: #CD235C;
     padding: 0;
     color: #eee;
@@ -37,76 +37,50 @@ body {
 }
 
 #footer {
-    position: absolute;
-    z-index: 2;
-    bottom: 0;
-    left: 0;
+    /*position: absolute;*/
+    /*z-index: 2;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
     width: 100%;
-    height: 48px;
+    height: 10vh;
     background: #444;
     padding: 0;
     border-top: 1px solid #444;
 }
 
 #wrapper {
-    position: absolute;
-    z-index: 1;
-    top: 45px;
-    bottom: 48px;
-    left: 0;
+    /*position: absolute;*/
+    /*z-index: 1;*/
+    /*top: 45px;*/
+    /*bottom: 48px;*/
+    /*left: 0;*/
     width: 100%;
-    height: 100px;
+    height: 80vh;
     background: #ccc;
     overflow: hidden;
 }
 
-#scroller {
-    position: absolute;
-    z-index: 1;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    width: 100%;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-text-size-adjust: none;
-    -moz-text-size-adjust: none;
-    -ms-text-size-adjust: none;
-    -o-text-size-adjust: none;
-    text-size-adjust: none;
-}
-
-#scroller ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    text-align: left;
-    position: relative;
-}
-
-#scroller li {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
+.content{
+    height: 60vh;
+    line-height: 60vh;
+    font-size: 36px;
     text-align: center;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
-    padding: 0 10px;
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #fff;
-    background-color: #fafafa;
-    font-size: 16px;
+}
+.button-group{
+    display: flex;
+    height: 20vh;
+    line-height: 20vh;
+}
+.button{
+    flex: 1;
+    text-align: center;
+    border-radius: 5%;
+    background: red;
+    margin: 5vh 5vw;
+    line-height: 11vh;
+    font-size: 24px;
+    color: white;
+}
+.button.button-disabled {
+    opacity: 0.2;
 }
