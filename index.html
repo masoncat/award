@@ -1,24 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+    <title>iScroll demo: infinite scrolling</title>
+
+    <script type="text/javascript" src="./lib/iscroll-infinite.js"></script>
+    <script type="text/javascript" src="./lib/demoUtils.js"></script>
     <link rel="stylesheet" href="./src/index.css" />
 </head>
-<body>
-<div class="rollpic cl"> <a href="javascript:void(0)" class="prev"></a>
-    <div class="rollpicshow">
-        <ul>
-            <li><img width="170" height="143" title="" src="./temp/banner1.jpg"></li>
-            <li><img width="170" height="143" title="" src="./temp/banner2.jpg"></li>
-            <li><img width="170" height="143" title="" src="temp/banner3.jpg"></li>
-        </ul>
+<body onload="loaded()">
+<div id="header">抽奖活动</div>
+<div id="wrapper">
+    <div class="content">
+        刘伟明
     </div>
-    <a href="javascript:void(0)" class="next"></a>
+    <div class="button-group">
+        <button class="button">一等奖</button>
+        <button class="button">二等奖</button>
+        <button class="button">三等奖</button>
+    </div>
 </div>
 
-<script type="text/javascript" src="lib/jquery.min.js"></script>
-<script type="text/javascript" src="lib/jcarousellite.js"></script>
-<script type="text/javascript" src="src/index.js"></script>
+
+<div id="footer"></div>
+<script src="./src/index.js"></script>
 </body>
 </html>
