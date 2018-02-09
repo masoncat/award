@@ -89,7 +89,8 @@ var WhiteList = {
     '一等奖':['杨威','朱翔'],
     '二等奖':['周航']
 }
-window.PeopleList = PeopleList
+window._PeopleList = PeopleList;
+window._WhiteList = WhiteList;
 
 
 window.onload = function () {
@@ -103,15 +104,13 @@ window.onload = function () {
     var currPeople = '';
 
     function start(awardText, clickNum) {
-        console.log('start:' + awardText + '点击次数：' + clickNum);
         normalStart();
         if (clickNum > 1) {
             logicStart(awardText);
         }
     }
 
-    function stop(awardText, clickNum) {
-        console.log('stop:' + awardText + '点击次数：' + clickNum);
+    function stop(awardText) {
         if (currPeople) {
             logicStop(currPeople,awardText);
             currPeople = '';
@@ -121,8 +120,8 @@ window.onload = function () {
     }
 
     function logicStart(awardText) {
-        var currPeopleArr = WhiteList[awardText];
-        var random = Math.floor(Math.random()*currPeopleArr.length);
+        var currPeopleArr = WhiteList[awardText] || [];
+        var random = Math.floor(Math.random() * currPeopleArr.length);
         currPeople = currPeopleArr[random];
     }
 
@@ -144,17 +143,27 @@ window.onload = function () {
 
     function normalStop() {
         clearInterval(loadInterval);
-        var peopleName = document.getElementsByClassName('content')[0].innerHTML; // TODO 需要把白名单里的名字去掉
+        var peopleName = document.getElementsByClassName('content')[0].innerHTML;
         removePeople(peopleName);
         PeopleList = PeopleList.filter(function (item) {
             return item['name'] !== peopleName;
-        })
+        });
+        // 需要将白名单里的名字去掉
+        removeWhiteList(peopleName);
     }
 
     function removePeople(peopleName) {
         PeopleList = PeopleList.filter(function (item) {
             return item['name'] !== peopleName;
         })
+    }
+
+    function removeWhiteList(peopleName) {
+        for (var i in WhiteList){
+            WhiteList[i] = WhiteList[i].filter(function (item) {
+                return item !== peopleName;
+            });
+        }
     }
 
     function randomName() {
@@ -179,6 +188,9 @@ window.onload = function () {
     }
 
     function startHandler(e, clickNum) {
+        if (e.target.className !== 'button'){
+            return;
+        }
         var awardText = e.target.innerHTML;
         isStart = true;
         e.target.className += ' button-disabled';
@@ -186,21 +198,21 @@ window.onload = function () {
         start(awardText, clickNum);
     }
 
-    function stopHandler(e,clickNum) {
+    function stopHandler(e) {
         var awardText = e.target.innerHTML;
         // 开始后，其他的按钮不能点击
         if (awardText === currAwrad) {
             isStart = false;
             e.target.className = 'button';
             currAwrad = '';
-            stop(awardText, clickNum);
+            stop(awardText);
         }
     }
 
     document.getElementsByClassName('button-group')[0].addEventListener('click', function (e) {
 
         if (isStart) {         // 再次点击，结束
-            stopHandler(e,clickNum);
+            stopHandler(e);
         } else {         // 开始
             // 需要监听一段时间内的点击事件
             startListen(startHandler.bind(this, e));
