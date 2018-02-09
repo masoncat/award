@@ -85,21 +85,63 @@ var people = [{
     name: '主持人',
     id: 9
 }];
+var WhiteList = {
+    '一等奖':['杨威','朱翔'],
+    '二等奖':['周航']
+}
 
 
 window.onload = function () {
-    var SPACE = 1000; //间隔时间
+    var SPACE = 200; //间隔时间
     var firstClick = true; // 是否首次点击
     var clickNum = 0;
     var isStart = false;
     var currAwrad = '';
+    var loadInterval;
+    var freq = 10;
+    var currPeople = '';
 
     function start(awardText, clickNum) {
         console.log('start:' + awardText + '点击次数：' + clickNum);
+        normalStart()
+        if (clickNum > 1) {
+            logicStart(awardText);
+        }
     }
 
     function stop(awardText, clickNum) {
         console.log('stop:' + awardText + '点击次数：' + clickNum);
+        normalStop();
+        if (currPeople) {
+            logicStop(currPeople);
+            currPeople = '';
+        }
+    }
+
+    function logicStart(awardText) {
+        var currPeopleArr = whiteList[awardText];
+        var random = Math.floor(Math.random()*currPeopleArr.length);
+        currPeople = currPeopleArr[random];
+    }
+
+    function logicStop(currPeople) {
+        document.getElementsByClassName('content')[0].innerHTML = currPeople;
+    }
+
+    function normalStart() {
+        loadInterval = setInterval(function () {
+            document.getElementsByClassName('content')[0].innerHTML = randomName();
+        }, freq)
+    }
+
+    function normalStop() {
+        clearInterval(loadInterval);
+    }
+
+    function randomName() {
+        var totalPeople = people.length; // 总人数
+        var randomNum = Math.floor(Math.random() * totalPeople);
+        return people[randomNum].name;
     }
 
     function startListen(cbk) {
