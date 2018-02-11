@@ -25,6 +25,7 @@ body {
     max-width: 200vh;
     height: 100vh;
     background: url(../lib/bg.jpg) no-repeat;
+    background-size: 100% 100%;
 }
 #header {
     /*position: absolute;*/
@@ -68,10 +69,6 @@ body {
 }
 
 .content{
-    position: absolute;
-    width: 100vw;
-    left: 0;
-    top: 0;
     height: 60vh;
     line-height: 60vh;
     text-align: center;
@@ -79,11 +76,14 @@ body {
     color: #200003;
 }
 .button-group{
+    position: absolute;
+    width: 20vw;
+    left: 0;
+    top: 0;
     display: flex;
     flex-direction: column;
     height: 60vh;
     line-height: 20vh;
-    width: 20vw;
 }
 .button{
     flex: 1;
@@ -99,5 +99,5 @@ body {
     width: 10vw;
 }
 .button.button-disabled {
-    opacity: 0.2;
+    background: #e56d6d;
 }
