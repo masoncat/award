@@ -86,7 +86,7 @@ window.onload = function () {
      */
     function stopMusic() {
         // 需要将音乐停止
-        BgmDom.load();
+        BgmDom.pause();
 
     }
 
